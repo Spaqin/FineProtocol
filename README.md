@@ -45,14 +45,14 @@ Every ``1`` in the response data means that this sensor is supported; ``0`` mean
 
 Devices supported list requires not only the name of the device, but also measurement unit. This does not have to concern the slave device, but rather should be saved in the master. If the sensor you're using uses a different unit, you should either convert it or create your own category.
 
-| Sensor# | Device name | Unit of measurement | Sensor used for development
-|---------|-------------|---------------------|----------------------------
-| 0 | Temperature | °C | DHT11
-| 1 | Humidity    | %RH | DHT11
-| 2 | PM2.5	  | 0.1μg/m^3 (div by 10) | SDS011
-| 3 | PM10	  | 0.1μg/m^3 (div by 10) | SDS011
-| 4 | CO	  | mV (raw ADC data, requires per-unit calibration) | MQ-7
-| 5-F | Reserved  | Can be added later, if anything comes up. | N/A
+| Sensor# | Device name | Unit of measurement | Sensor used for development | Format
+|---------|-------------|---------------------|-----------------------------|--------
+| 0 | Temperature | °C | DHT11 | Data[0] = integer; Data[1] = decimals (ie. 24.0[C])
+| 1 | Humidity    | %RH | DHT11 | Data[0] = integer; Data[1] = decimals
+| 2 | PM2.5	  | 0.1μg/m^3 (div by 10) | SDS011 | Data[0..1] = pm2.5 multiplied by 10
+| 3 | PM10	  | 0.1μg/m^3 (div by 10) | SDS011 | Data[0..1] = pm10 multiplied by 10
+| 4 | CO	  | mV (raw ADC data, requires per-unit calibration) | MQ-7 | Data[0..1] = mV on the sensor
+| 5-F | Reserved  | Can be added later, if anything comes up. | N/A | N/A
 
 ### Checksum ###
 Simply add all the previous bytes together and you will get the checksum.
@@ -63,3 +63,4 @@ To be added later.
 
 ### Implementation ###
 Should be easy enough in any language.
+I included the implementation used in my ThisIsFine repo; may include Kotlin files for Android/Java and Python for debugging if I finish them.
