@@ -11,8 +11,8 @@ It's a simple no-nonsense 5-byte protocol, including header, command, two bytes 
 |--------|--------|----------------------------------------------------------|
 | 0      |Header  | Always 0xF2 for master device (queries), 0xF1 for answers.
 | 1      |Command | Described thoroughly later; copied from query to answer.  
-| 2      |Data 0  | Higher byte of data.
-| 3      |Data 1  | Lower byte of data.
+| 2      |Data 0  | Lower byte of data.
+| 3      |Data 1  | Higher byte of data.
 | 4      |Checksum| Header+Command+Data0+Data1.
 
 ### Header ###
@@ -49,9 +49,9 @@ Devices supported list requires not only the name of the device, but also measur
 |---------|-------------|---------------------|-----------------------------|--------
 | 0 | Temperature | °C | DHT11 | Data[0] = integer; Data[1] = decimals (ie. 24.0[C])
 | 1 | Humidity    | %RH | DHT11 | Data[0] = integer; Data[1] = decimals
-| 2 | PM2.5	  | 0.1μg/m^3 (div by 10) | SDS011 | Data[0..1] = pm2.5 multiplied by 10
-| 3 | PM10	  | 0.1μg/m^3 (div by 10) | SDS011 | Data[0..1] = pm10 multiplied by 10
-| 4 | CO	  | mV (raw ADC data, requires per-unit calibration) | MQ-7 | Data[0..1] = mV on the sensor
+| 2 | PM2.5	  | 0.1μg/m^3 (div by 10) | SDS011 | Data[0..1] = pm2.5 multiplied by 10 (Little Endian)
+| 3 | PM10	  | 0.1μg/m^3 (div by 10) | SDS011 | Data[0..1] = pm10 multiplied by 10 (Little Endian)
+| 4 | CO	  | mV (raw ADC data, requires per-unit calibration) | MQ-7 | Data[0..1] = mV on the sensor (Little Endian)
 | 5-F | Reserved  | Can be added later, if anything comes up. | N/A | N/A
 
 ### Checksum ###
